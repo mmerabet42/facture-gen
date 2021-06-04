@@ -13,16 +13,13 @@ import {
 
 export const App = () => {
     const [ generateButton, setGenerateButton ] = React.useState(false);
-    const [generateState, setGenerateState]  = React.useState(null);
+    const [ generateState, setGenerateState ]  = React.useState(null);
 
     const reference = (new URLSearchParams(useLocation().search)).get("r");
 
     React.useEffect(() => {
-        if (reference === undefined)
-            return;
-
         let refItem = null;
-        if (reference === "0")
+        if (!reference)
         {
             refItem = 
 `{
