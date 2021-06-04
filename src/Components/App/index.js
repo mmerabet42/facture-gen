@@ -1,5 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router';
+
+import { useLocation } from 'react-router-dom';
 
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-json";
@@ -13,9 +14,8 @@ import {
 export const App = () => {
     const [ generateButton, setGenerateButton ] = React.useState(false);
     const [generateState, setGenerateState]  = React.useState(null);
-    const textRef = React.useRef();
 
-    const { reference } = useParams();
+    const reference = (new URLSearchParams(useLocation().search)).get("r");
 
     React.useEffect(() => {
         if (reference === undefined)
