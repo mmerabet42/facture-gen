@@ -45,6 +45,7 @@ export const Menu = ({ setCurrentRef }) => {
                     ))}
                 </div>
             </div>
+            <button className="clear" onClick={() => localStorage.clear()}>CLEAR SAVED</button>
         </MenuContainer>
     );
 };

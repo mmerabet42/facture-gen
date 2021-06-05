@@ -39,6 +39,13 @@ export const MenuContainer = styled.div`
         }
     }
 
+    .clear {
+        font-family: inherit;
+        border: none;
+        outline: none;
+        padding: 20px;
+    }
+
 `;
 
 export const JsonEditorContainer = styled.div`
