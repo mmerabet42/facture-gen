@@ -83,6 +83,10 @@ export const App = () => {
 const AppL = ({ attrs }) => {
     var total = 0;
 
+    React.useEffect(() => {
+        window.print();
+    });
+
     return (
         <AppContainer>
             <div className="container">  
