@@ -125,7 +125,7 @@ const InvoiceView = ({ attrs }) => {
     var total = 0;
 
     React.useEffect(() => {
-        window.print();
+        setTimeout(() => window.print(), 500);
     });
 
     return (
