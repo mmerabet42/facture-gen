@@ -1,6 +1,47 @@
 import styled from 'styled-components';
 
-export const AppAreaContainer = styled.div`
+export const MenuContainer = styled.div`
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap');
+    font-family: Poppins;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    p {
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+    }
+
+    .invoices {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .no {
+            color: var(--grey2);
+        }
+
+        .list {
+                display: flex;
+                flex-direction: column;
+            }
+
+        .invoice {
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            outline: none;
+            font-family: inherit;
+            font-size: 20px;
+        }
+    }
+
+`;
+
+export const JsonEditorContainer = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap');
     font-family: Poppins;
     height: 100%;
@@ -11,25 +52,20 @@ export const AppAreaContainer = styled.div`
 
     .textarea {
         flex: 1;
-        /* resize: none; */
-        /* white-space: nowrap; */
-        /* overflow: auto; */
-        /* outline: none; */
-        /* border: none; */
-    }
-
-    button {
-        background-color: var(--blue);
-        color: white;
-        font-family: Poppins;
-        font-size: 20px;
-        border: none;
-        outline: none;
-        padding: 20px;
     }
 `;
 
-export const AppContainer = styled.div`
+export const CButton = styled.button`
+    background-color: var(--blue);
+    color: white;
+    font-family: Poppins;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    padding: 20px;
+`;
+
+export const InvoiceViewContainer = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap');
     -webkit-print-color-adjust: exact;
     font-family: Poppins;

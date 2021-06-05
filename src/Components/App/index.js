@@ -7,19 +7,55 @@ import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
 
 import {
-    AppAreaContainer,
-    AppContainer
+    MenuContainer,
+    JsonEditorContainer,
+    InvoiceViewContainer,
+    CButton
 } from './style';
 
-export const App = () => {
-    const [ generateButton, setGenerateButton ] = React.useState(false);
-    const [ generateState, setGenerateState ]  = React.useState(null);
+export const Menu = ({ setCurrentRef }) => {
 
     const reference = (new URLSearchParams(useLocation().search)).get("r");
 
     React.useEffect(() => {
+        if (reference)
+            setCurrentRef(reference);
+    });
+
+    let invoices = [];
+    let last_invoice = null;
+    for (let i = 0; i < localStorage.length; ++i) {
+        const itemName = localStorage.key(i);
+        if (itemName.startsWith("facture-gen-"))
+            invoices.push(itemName.substr(12));
+        else if (itemName === "last-facture-gen")
+            last_invoice = JSON.parse(localStorage.getItem("last-facture-gen")).reference;
+    }
+
+    return (
+        <MenuContainer>
+            <CButton onClick={() => setCurrentRef("")}>New Invoice</CButton>
+            <div className="invoices">
+                <p className="title0">Last</p>
+                {last_invoice ? <button className="invoice" onClick={() => setCurrentRef(last_invoice)}>{last_invoice}</button> : null}
+                <p className="title1">Saved</p>
+                <div className="list">
+                    {invoices.map((name, i) => (
+                        <button key={i} className="invoice" onClick={() => setCurrentRef(name)}>{name}</button>
+                    ))}
+                </div>
+            </div>
+        </MenuContainer>
+    );
+};
+
+export const JsonEditor = ({ reference }) => {
+    const [ generateButton, setGenerateButton ] = React.useState(false);
+    const [ generateState, setGenerateState ]  = React.useState(null);
+
+    React.useEffect(() => {
         let refItem = null;
-        if (!reference)
+        if (!reference || reference === "")
         {
             refItem = 
 `{
@@ -45,7 +81,7 @@ export const App = () => {
         }
         else
         {
-            refItem = localStorage.getItem(reference);
+            refItem = localStorage.getItem("facture-gen-" + reference);
             if (!refItem)
                 return;
         }
@@ -54,7 +90,12 @@ export const App = () => {
 
     const generateStart = () => {
         const jsoned = JSON.parse(generateState);
-        localStorage.setItem(jsoned.reference, generateState);
+
+        if (!jsoned || !jsoned.reference || jsoned.reference === "")
+            return ;
+
+        localStorage.setItem("facture-gen-" + jsoned.reference, generateState);
+        localStorage.setItem("last-facture-gen", generateState);
         setGenerateButton(true);
         setGenerateState(jsoned);
     }
@@ -62,9 +103,9 @@ export const App = () => {
     return (
         generateButton
         ?
-        <AppL attrs={generateState} />
+        <InvoiceView attrs={generateState} />
         :
-        <AppAreaContainer>
+        <JsonEditorContainer>
             <div className="textarea">
                 <AceEditor
                     mode="json"
@@ -75,12 +116,12 @@ export const App = () => {
                     height="100%"
                 />
             </div>
-            <button onClick={() => generateStart()}>Generate</button>
-        </AppAreaContainer>
+            <CButton onClick={() => generateStart()}>Generate</CButton>
+        </JsonEditorContainer>
     )
 };
 
-const AppL = ({ attrs }) => {
+const InvoiceView = ({ attrs }) => {
     var total = 0;
 
     React.useEffect(() => {
@@ -88,7 +129,7 @@ const AppL = ({ attrs }) => {
     });
 
     return (
-        <AppContainer>
+        <InvoiceViewContainer>
             <div className="container">  
                 <div className="header">
                     <div className="top">
@@ -154,6 +195,6 @@ const AppL = ({ attrs }) => {
                 </div>
 
             </div>
-        </AppContainer>
+        </InvoiceViewContainer>
     );
 }

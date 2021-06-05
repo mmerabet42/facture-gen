@@ -2,21 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { App } from './Components/App';
+import { Menu, JsonEditor } from './Components/App';
 
-const AppParent = () => {
+const App = () => {
+  const [ currentRef, setCurrentRef ] = React.useState(null);
+
   return (
     <BrowserRouter>
-      <App />
-      {/* <Switch> */}
-        {/* <Route path="/:reference" children={ <App /> } /> */}
-        {/* <Route path="/" children={ <App/> } /> */}
-      {/* </Switch> */}
+      {
+        currentRef === null ? <Menu setCurrentRef={setCurrentRef} />
+                            : <JsonEditor reference={currentRef} />
+      }
     </BrowserRouter>
   );
 }
 
 ReactDOM.render(
-  <AppParent />,
+  <App />,
   document.getElementById('root')
 );
