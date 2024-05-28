@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/facture-gen/static/js/main.fec4cc4a.chunk.js",
-    "main.js.map": "/facture-gen/static/js/main.fec4cc4a.chunk.js.map",
+    "main.js": "/facture-gen/static/js/main.68a0b2ed.chunk.js",
+    "main.js.map": "/facture-gen/static/js/main.68a0b2ed.chunk.js.map",
     "runtime-main.js": "/facture-gen/static/js/runtime-main.8bde9da7.js",
     "runtime-main.js.map": "/facture-gen/static/js/runtime-main.8bde9da7.js.map",
     "static/js/2.1ee75e92.chunk.js": "/facture-gen/static/js/2.1ee75e92.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.8bde9da7.js",
     "static/js/2.1ee75e92.chunk.js",
-    "static/js/main.fec4cc4a.chunk.js"
+    "static/js/main.68a0b2ed.chunk.js"
   ]
 }
