@@ -124,7 +124,7 @@ export const JsonEditor = ({ reference }) => {
 };
 
 const InvoiceView = ({ attrs }) => {
-    var total = 0;
+    var total = 0.0;
 
     React.useEffect(() => {
         if (attrs.name)
