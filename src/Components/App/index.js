@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useLocation } from 'react-router-dom';
+import rgba from 'color-rgba';
 
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-json";
@@ -126,11 +127,21 @@ const InvoiceView = ({ attrs }) => {
     var total = 0;
 
     React.useEffect(() => {
-        setTimeout(() => window.print(), 500);
-    });
+        if (attrs.name)
+            document.title = attrs.name;
+        else
+            document.title = `invoice-${attrs.reference}`;
+        setTimeout(() => window.print(), 600);
+    }, []);
+
+    let color2 = attrs.color2;
+    if (attrs.color && !attrs.color2) {
+        color2 = rgba(attrs.color);
+        color2 = `rgba(${color2[0]}, ${color2[1]}, ${color2[2]}, 0.1)`;
+    }
 
     return (
-        <InvoiceViewContainer>
+        <InvoiceViewContainer color={attrs.color || "var(--blue)"} color2={color2 ||  "var(--blue2)"}>
             <div className="container">  
                 <div className="header">
                     <div className="top">
@@ -161,7 +172,17 @@ const InvoiceView = ({ attrs }) => {
                     <p className="titled">{attrs.entitled}</p>
                     <table className="table">
                         {attrs.invoices.map((tr, i) => {
-                            const f = tr.map(v => parseInt(v));
+                            const f = [];
+                            tr.forEach(v => {
+                                if (typeof v == "object")
+                                    f.push(eval(v.formula));
+                                else {
+                                    var a = parseFloat(v);
+                                    if (isNaN(a))
+                                        a = v;
+                                    f.push(a);
+                                }
+                            });
                             if (i !== 0 && attrs.totalFormula !== undefined)
                                 eval(attrs.totalFormula);
 
@@ -169,7 +190,7 @@ const InvoiceView = ({ attrs }) => {
                                 {tr.map((td, j) => {
                                     var res = td;
                                     if (typeof td == "object")
-                                        res = eval(res.formula) + td.next;
+                                        res = f[j] + td.next;
 
                                     return <td key={j}>{res}</td>
                                 })}
@@ -177,10 +198,10 @@ const InvoiceView = ({ attrs }) => {
                         })}
                     </table>
                     <div className="total">
-                        <p className="text">Total Hors Taxe</p>
-                        <p className="amount">{total} €</p>
+                        <p className="text">{attrs.totalMessage ?? "Total Hors Taxe"}</p>
+                        <p className="amount">{total.toFixed(2)} €</p>
                     </div>
-                    <p className="tvanon">TVA non applicable – article 293 B du CGI</p>
+                    {attrs.disableTvaMention ? "" : <p className="tvanon">TVA non applicable – article 293 B du CGI</p>}
                 </div>
 
                 <div className="message">{attrs.message}</div>

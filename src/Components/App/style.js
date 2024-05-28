@@ -55,7 +55,6 @@ export const JsonEditorContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    
 
     .textarea {
         flex: 1;
@@ -75,8 +74,11 @@ export const CButton = styled.button`
 export const InvoiceViewContainer = styled.div`
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap');
     -webkit-print-color-adjust: exact;
-    font-family: Poppins;
+    font-family: "Poppins";
     height: 100%;
+
+    --default: ${props => props.color};
+    --default2: ${props => props.color2};
 
     p {
         margin-block-start: 0px;
@@ -92,7 +94,7 @@ export const InvoiceViewContainer = styled.div`
         margin-right: 30px;
 
         .by {
-            color: var(--blue);
+            color: var(--default);
             background-color: var(--grey1);
             border-radius: 10px;
             padding-left: 10px;
@@ -199,11 +201,11 @@ export const InvoiceViewContainer = styled.div`
                 }
     
                 .field:nth-child(odd) {
-                    background-color: var(--blue2);
+                    background-color: var(--default2);
                 }
     
                 .titles {
-                    background-color: var(--blue);
+                    background-color: var(--default);
                     color: white;
                     text-transform: uppercase;
                     font-size: 12px;
@@ -227,13 +229,13 @@ export const InvoiceViewContainer = styled.div`
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                background-color: var(--blue2);
+                background-color: var(--default2);
                 border-radius: 10px;
                 font-weight: 400;
                 padding: 10px;
 
                 .text {
-                    color: var(--blue);
+                    color: var(--default);
                     margin-right: 10px;
                 }
             }
@@ -254,7 +256,7 @@ export const InvoiceViewContainer = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: var(--blue2);
+            background-color: var(--default2);
             border-radius: 10px;
             padding: 10px;
 
@@ -267,7 +269,7 @@ export const InvoiceViewContainer = styled.div`
                 flex-direction: row;
 
                 .title {
-                    color: var(--blue);
+                    color: var(--default);
                     margin-right: 5px;
                 }
 
